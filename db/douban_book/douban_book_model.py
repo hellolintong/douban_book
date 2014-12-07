@@ -48,12 +48,6 @@ def get_book(**kwargs):
     return DoubanBookStorage.get(**kwargs)
 
 
-def add_tag(book, tag_name):
-    if tag_name not in book.tag_list:
-        book.tag_list.append(tag_name)
-        book.save()
-
-
 def cal_real_score(**kwargs):
 
     def get_cal(num, weight):

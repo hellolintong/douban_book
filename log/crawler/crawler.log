@@ -1,0 +1,90 @@
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 2, in <module>
+    import redis
+ImportError: No module named redis
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 11, in <module>
+    from spider import crawler_tag
+  File "/home/Flask/spider/spider.py", line 8, in <module>
+    from bs4 import BeautifulSoup
+ImportError: No module named bs4
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 11, in <module>
+    from spider import crawler_tag
+  File "/home/Flask/spider/spider.py", line 8, in <module>
+    from bs4 import BeautifulSoup
+ImportError: No module named bs4
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 11, in <module>
+    from spider import crawler_tag
+  File "/home/Flask/spider/spider.py", line 8, in <module>
+    from bs4 import BeautifulSoup
+ImportError: No module named bs4
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 11, in <module>
+    from spider import crawler_tag
+  File "/home/Flask/spider/spider.py", line 8, in <module>
+    from bs4 import BeautifulSoup
+ImportError: No module named bs4
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 118, in <module>
+    pdb.set_trace()
+NameError: name 'pdb' is not defined
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 118, in <module>
+    pdb.set_trace()
+NameError: name 'pdb' is not defined
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 118, in <module>
+    pdb.set_trace()
+NameError: name 'pdb' is not defined
+Traceback (most recent call last):
+  File "/home/Flask/spider/spider_handler.py", line 118, in <module>
+    pdb.set_trace()
+NameError: name 'pdb' is not defined
+2014-12-04 16:51:55,285:
+Head First 设计模式
+2014-12-04 16:59:36,991:
+大话设计模式
+2014-12-04 17:00:24,396:
+企业应用架构模式
+2014-12-04 17:01:10,179:
+敏捷软件开发
+2014-12-04 17:02:57,160:
+建筑的永恒之道
+2014-12-04 17:03:37,699:
+设计模式之禅
+2014-12-04 17:04:08,552:
+UML和模式应用
+2014-12-04 17:05:10,405:
+Java与模式
+2014-12-06 19:50:56,443:
+Head First 设计模式

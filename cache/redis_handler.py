@@ -29,6 +29,8 @@ class RedisHandler():
 
     def add_set_member(self, elem):
         return self.connection.sadd(self.set_name, elem)
+    def get_set_len(self):
+        return self.connection.scard(self.set_name)
 
 
 def get_book_redis_handler():

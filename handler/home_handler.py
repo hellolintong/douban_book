@@ -13,8 +13,10 @@ home = Blueprint('home', __name__, template_folder=Config.PARENT_DIR+'/templates
 
 @home.route('/')
 def index():
-    import pdb; pdb.set_trace()
     book_redis_handler = redis_handler.get_book_redis_handler()
+    tag_redis_handler = redis_handler.get_tag_redis_handler()
+    book_num = book_redis_handler.get_set_len()
+    tag_num =  tag_redis_handler.get_set_len()
     tags = douban_tag_model.get_tag()
     new_tags = list()
     for tag in tags:
@@ -22,7 +24,6 @@ def index():
         for book_id in tag.book_list:
             if book_redis_handler.check_set_member(book_id):
                 number += 1
-        print number
         if number > 10:
             tag.book_number = number
             new_tags.append(tag)
@@ -39,7 +40,7 @@ def index():
         new_tags = new_tag_back_up
 
     new_tags.sort(key=lambda x: x.book_number, reverse=True)
-    return render_template('index.html', tags=new_tags, login=login, user_id=user_id)
+    return render_template('index.html', tags=new_tags, login=login, user_id=user_id, book_num=book_num, tag_num=tag_num)
 
 
 @home.route('/tag/<tag_name>')

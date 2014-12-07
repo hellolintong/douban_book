@@ -16,13 +16,10 @@ from log.crawler import crawler_log
 def book_handler(book_redis_handler, tag_redis_handler):
     #pdb.set_trace()
     while book_redis_handler.queue_len():
-        elem = book_redis_handler.pop_queue()
-        book_id = elem.split(',')[0]
-        search_tag_id = elem.split(',')[1]
+        book_id = book_redis_handler.pop_queue()
         #有可能队列中会填入重复的书籍
         if book_redis_handler.check_set_member(book_id):
             continue
-        book_id = unicode(book_id)
         try:
             book = crawler_book(book_id)
             if not book:
@@ -32,28 +29,23 @@ def book_handler(book_redis_handler, tag_redis_handler):
             #traceback.print_exc(file=open('dbg.txt', 'w+'))
             continue
 
-        #反查book中是否包含tag
-        if search_tag_id not in book['tag_list']:
-            continue
-        # 按照先后顺序添加一个标签到搜索队列，因为前面的标签更加靠谱
-        tag_add_flag = False
         for tag in book['tag_list']:
-            if not tag_redis_handler.check_set_member(tag):
-                tag_redis_handler.push_queue(tag)
-                book['tag_list'] = [search_tag_id]
-                tag_add_flag = True
-                break
+            tag_list = douban_tag_model.get_tag(name=tag.name)
+            if not tag_list:
+                douban_tag_model.add_tag(name=tag.name, book_list=[book_id])
+                tag_redis_handler.push_queue(tag.name)
+            else:
+                douban_tag_model.add_book(tag_list[0], book_id)
 
-        if tag_add_flag:
-            try:
-                douban_book_model.add_book(**book)
-            except Exception, e:
+        try:
+            douban_book_model.add_book(**book)
+        except Exception, e:
                 #traceback.print_exc(file=open('dbg.txt', 'w+'))
-                continue
-            #logger.info(traceback.print_exc())
-            #print book_id + ":success"
-            book_redis_handler.add_set_member(book_id)
-            crawler_log.log_info(book['name'])
+            continue
+             #logger.info(traceback.print_exc())
+             #print book_id + ":success"
+        book_redis_handler.add_set_member(book_id)
+        crawler_log.log_info(book['name'])
 
 
 def tag_handler(tag_redis_handler, book_redis_handler):
@@ -61,7 +53,6 @@ def tag_handler(tag_redis_handler, book_redis_handler):
         tag_id = tag_redis_handler.pop_queue()
         if tag_redis_handler.check_set_member(tag_id):
             continue
-        tag_redis_handler.add_set_member(tag_id)
         try:
             tag = crawler_tag(tag_id)
             if not tag:
@@ -71,35 +62,28 @@ def tag_handler(tag_redis_handler, book_redis_handler):
             continue
 
         for book_id in tag['book_list']:
-            if not book_redis_handler.check_set_member(book_id):
-                book_redis_handler.push_queue(unicode(book_id) + u',' + unicode(tag_id))
-            else:
-                book = douban_book_model.get_book(book_id=book_id)
-                if book:
-                    douban_book_model.add_tag(book[0], tag_id)
+            book_redis_handler.push_queue(book_id)
         try:
             douban_tag_model.add_tag(**tag)
         except Exception, e:
             #traceback.print_exc(file=open('dbg.txt', 'w+'))
             pass
+        tag_redis_handler.add_set_member(tag_id)
 
 
-def handler(book_id, tag_id):
+def handler(book_id):
     books = douban_book_model.get_book()
     tags = douban_tag_model.get_tag()
-    book_name_list = []
-    for book in books:
-        book_name_list.append(book.book_id)
-    tag_name_list = []
-    for tag in tags:
-        tag_name_list.append(tag.name)
+    book_name_list = [book.book_id for book in books]
+    tag_name_list = [tag.name for tag in tags if len(tag.book_list) == 1]
+
     book_redis_handler = redis_handler.get_book_redis_handler()
     book_redis_handler.batch_add_set_member(book_name_list)
 
     tag_redis_handler = redis_handler.get_tag_redis_handler()
     tag_redis_handler.batch_add_set_member(tag_name_list)
 
-    book_redis_handler.push_queue(unicode(book_id) + u',' + unicode(tag_id))
+    book_redis_handler.push_queue(unicode(book_id))
 
     while True:
         length = random.randint(30, 60)
@@ -108,5 +92,4 @@ def handler(book_id, tag_id):
         time.sleep(length)
 
 if __name__ == "__main__":
-    import pdb;pdb.set_trace()
-    handler(2243615, u'\u8bbe\u8ba1\u6a21\u5f0f')
+    handler(2243615)

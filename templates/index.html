@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {%block body%}
 <div>
+	<h2 align="center">当前标签数量:{{tag_num}} &nbsp&nbsp当前书籍数量:{{book_num}}</h2>
     <div id = "wrapper">
         <div id = "cell">
              {% for tag in tags %}

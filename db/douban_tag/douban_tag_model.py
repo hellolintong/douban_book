@@ -33,11 +33,8 @@ def delete_tag(tag):
 def get_tag(**kwargs):
     return DoubanTagStorage.get(**kwargs)
 
+
 def add_book(tag, book_id):
-    if  book_id not in tag.book_list:
+    if book_id not in tag.book_list:
         tag.book_list.append(book_id)
         tag.save()
-
-def add_book_list(tag, book_list):
-    tag.book_list = book_list
-    tag.save()
