@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{%block body%}
+<div>
+    <h2 align="center">{{info}}</h2>
+    <div id = "wrapper">
+        <div id = "cell">
+            <form method="post" action="/user/register" name="register_form">
+                用户名:&nbsp&nbsp&nbsp&nbsp<input type="text" name="name"><br>
+                密码:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="password" name="password"><br>
+                确认密码:<input type="password" name="repeat_password"><br>
+                <button type="button" onclick="check_password();">提交</button>
+            </form>
+         </div>
+      </div>
+</div>
+<script type="text/javascript">
+    function check_password(){
+        password = document.getElementsByName('password');
+        repeat_password = document.getElementsByName('repeat_password');
+        if(password.value == repeat_password.value){
+            document.register_form.submit();
+        }
+        else{
+            password.value="";
+            repeat_password.value="";
+        }
+    }
+</script>
+<style type="text/css">
+    #wrapper {display:table; margin-left:45%;}
+    #cell {display:table-cell; vertical-align:middle;}
+</style>
+{% endblock %}

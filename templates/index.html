@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{%block body%}
+<div>
+    <div id = "wrapper">
+        <div id = "cell">
+             {% for tag in tags %}
+             <a href='/tag/{{tag.name}}'>{{tag.name}}:{{tag.book_number}}</a>
+                 {% if login %}
+                    <button onclick="window.location.href='/user/tag_operation/add/{{user_id}}/{{tag.name}}';">收藏</button>
+                 {% endif %}
+                <br/>
+             {% endfor %}
+         </div>
+      </div>
+</div>
+<style type="text/css">
+    #wrapper {display:table; margin-left:45%;}
+    #cell {display:table-cell; vertical-align:middle;}
+</style>
+{% endblock %}

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "spider/spider_handler.py", line 39, in book_handler
+    book = crawler_book(book_id)
+  File "/home/lintong/Flask/douban_book/spider/spider.py", line 147, in crawler_book
+    book['book_list_num'] = int(fetch_number(paginator.find_all('a')[-2].text)) * 20
+AttributeError: 'NoneType' object has no attribute 'find_all'

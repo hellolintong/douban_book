@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{%block body%}
+<div>
+    <div id = "wrapper">
+        <div id = "cell">
+            <form method="post" action="/user/login">
+                用户名:&nbsp&nbsp&nbsp<input type="text" name="name"><br>
+                密码:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="password" name="password"><br>
+                <button type="submit">提交</button>
+            </form>
+         </div>
+      </div>
+</div>
+<style type="text/css">
+    #wrapper {display:table; margin-left:45%;}
+    #cell {display:table-cell; vertical-align:middle;}
+</style>
+{% endblock %}

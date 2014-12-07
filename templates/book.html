@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{%block body%}
+<div>
+    <h2 align="center">关联标签：{{tag}}</h2>
+    <div id = "wrapper">
+        <div id = "cell">
+             {% for book in books %}
+             <a href="https://book.douban.com/subject/{{book.book_id}}/" target="_blank"><img src = "{{book.img_url}}"></a>
+             <button onclick="showKey('{{book.book_id}}');">详细信息</button>
+             <div id = "{{book.book_id}}" style="display:none">
+                 <div>评分:{{book.final_score}}</div>
+                 <div>书名:{{book.title}}</div>
+                 <div>作者:{{book.author}}</div>
+                 <div>页数:{{book.page}}</div>
+                 <div>售价:{{book.price}}</div>
+                 <div>ISBN:{{book.ISBN}}</div>
+                 <div>
+                    关联标签:<br/>
+                     {%for tag in book.tag_list %}
+                     <a href="/tag/{{tag}}">{{tag}}</a>
+                     <br/>
+                     {% endfor %}
+                 </div>
+                 <div id = "introduce">简介:{{book.introduce | safe}}</div>
+             </div>
+             <hr/>
+             {% endfor %}
+         </div>
+      </div>
+</div>
+<style type="text/css">
+    #wrapper {display:table; margin-left:45%;}
+    #cell {display:table-cell; vertical-align:middle;}
+    #introduce {position:relative; right:120px;}
+</style>
+<script type="text/javascript">
+    function showKey(book_id){
+        elem = document.getElementById(book_id)
+            if (elem.style.display == "none"){
+                elem.style.display = "inline";
+            }
+            else{
+                elem.style.display = "none";
+            }
+    }
+</script>
+{% endblock %}

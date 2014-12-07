@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{%block body%}
+<div>
+    <h2 align="center">{{user.name}}</h2>
+    <div id = "wrapper">
+        <div id = "cell">
+            {% for tag in tags %}
+                <a href="/tag/{{tag}}">{{tag}}</a>&nbsp&nbsp&nbsp&nbsp<button onclick="window.location.href='/user/tag_operation/del/{{user.id}}/{{tag}}';">删除</button> <br>
+            {% endfor %}
+         </div>
+      </div>
+</div>
+<style type="text/css">
+    #wrapper {display:table; margin-left:45%;}
+    #cell {display:table-cell; vertical-align:middle;}
+</style>
+{% endblock %}
