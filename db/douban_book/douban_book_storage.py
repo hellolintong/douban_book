@@ -26,6 +26,7 @@ class DoubanBookStorage(BaseMongoStorage, mongoengine.Document):
         star_info: 具体评价
         read_num:读书人数
         book_list_num:书单数量
+        relate_book_list: 关联的书籍
         #标签信息
         tag_list: 相关联的标签列表
     """
@@ -44,6 +45,7 @@ class DoubanBookStorage(BaseMongoStorage, mongoengine.Document):
     read_num = mongoengine.IntField()
     book_list_num = mongoengine.IntField()
     tag_list = mongoengine.ListField(mongoengine.StringField(max_length=30))
+    relate_book_list = mongoengine.ListField(mongoengine.IntField())
     final_score = mongoengine.FloatField()
     meta = {
         'ordering': ['-final_score']

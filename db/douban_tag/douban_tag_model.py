@@ -31,7 +31,9 @@ def delete_tag(tag):
 
 
 def get_tag(**kwargs):
-    return DoubanTagStorage.get(**kwargs)
+    start = kwargs.pop('start', 0)
+    end = kwargs.pop('end', 20)
+    return DoubanTagStorage.get(**kwargs)[start:end]
 
 
 def add_book(tag, book_id):

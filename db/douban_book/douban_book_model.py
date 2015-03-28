@@ -26,6 +26,7 @@ def add_book(**kwargs):
     book.read_num = kwargs['read_num']
     book.book_list_num = kwargs['book_list_num']
     book.tag_list = kwargs['tag_list']
+    book.relate_book_list = kwargs['relate_book_list']
     book.final_score = cal_real_score(**kwargs)
     try:
         book.save()
@@ -45,7 +46,9 @@ def delete_book(book):
 
 
 def get_book(**kwargs):
-    return DoubanBookStorage.get(**kwargs)
+    start = kwargs.pop("start", 0)
+    end = kwargs.pop("end", 20)
+    return DoubanBookStorage.get(**kwargs)[start:end]
 
 
 def cal_real_score(**kwargs):

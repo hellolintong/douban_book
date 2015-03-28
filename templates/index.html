@@ -5,12 +5,14 @@
     <div id = "wrapper">
         <div id = "cell">
              {% for tag in tags %}
-             <a href='/tag/{{tag.name}}'>{{tag.name}}:{{tag.book_number}}</a>
+             <a href='/tag/{{tag.name}}/0'>{{tag.name}}</a>
                  {% if login %}
                     <button onclick="window.location.href='/user/tag_operation/add/{{user_id}}/{{tag.name}}';">收藏</button>
                  {% endif %}
                 <br/>
              {% endfor %}
+             <a href="/page/{{page - 1}}">上一页</a>
+             <a href="/page/{{page + 1}}">下一页</a>
          </div>
       </div>
 </div>

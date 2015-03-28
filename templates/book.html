@@ -8,23 +8,38 @@
              <a href="https://book.douban.com/subject/{{book.book_id}}/" target="_blank"><img src = "{{book.img_url}}"></a>
              <button onclick="showKey('{{book.book_id}}');">详细信息</button>
              <div id = "{{book.book_id}}" style="display:none">
-                 <div>评分:{{book.final_score}}</div>
+                 <h3>评分信息:</h3>
+                 <div>最终得分:{{book.final_score}}</div>
+                 <div>豆瓣得分:{{book.score}}</div>
+                 <div>评价人数:{{book.score_num}}</div>
+                 <div>豆列数量:{{book.book_list_num}}</div>
+                 <div>读者数量:{{book.read_num}}</div>
+                 <hr>
+                 <h3>书籍信息:</h3>
                  <div>书名:{{book.title}}</div>
                  <div>作者:{{book.author}}</div>
                  <div>页数:{{book.page}}</div>
                  <div>售价:{{book.price}}</div>
                  <div>ISBN:{{book.ISBN}}</div>
+                 <hr>
+                 <h3>关联的书籍:</h3>
+                 {% for relate_book_key in book.relate_book_dir %}
+                 <a href="http://book.douban.com/subject/{{relate_book_key}}/">{{book.relate_book_dir[relate_book_key]}}</a><br>
+                 {% endfor %}
+                 <h2>关联标签</h2>
                  <div>
-                    关联标签:<br/>
                      {%for tag in book.tag_list %}
                      <a href="/tag/{{tag}}">{{tag}}</a>
                      <br/>
                      {% endfor %}
                  </div>
+                 <hr>
                  <div id = "introduce">简介:{{book.introduce | safe}}</div>
              </div>
              <hr/>
              {% endfor %}
+             <a href="/tag/{{tag}}/{{page-1}}">上一页</a>
+             <a href="/tag/{{tag}}/{{page+1}}">下一页</a>
          </div>
       </div>
 </div>

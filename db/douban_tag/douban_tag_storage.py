@@ -15,3 +15,6 @@ class DoubanTagStorage(BaseMongoStorage, mongoengine.Document):
     """
     name = mongoengine.StringField(max_length=256, unique=True, required=True)
     book_list = mongoengine.ListField(mongoengine.IntField())
+    meta = {
+        'ordering': ['-book_list']
+    }
