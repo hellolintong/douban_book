@@ -3,7 +3,7 @@ import redis
 
 g_book_redis_handler = None
 g_tag_redis_handler = None
-
+g_relate_book_redis_handler = None
 
 class RedisHandler():
     def __init__(self, name):
@@ -29,8 +29,16 @@ class RedisHandler():
 
     def add_set_member(self, elem):
         return self.connection.sadd(self.set_name, elem)
+
     def get_set_len(self):
         return self.connection.scard(self.set_name)
+
+
+def get_relate_book_redis_handler():
+    global g_relate_book_redis_handler
+    if not g_relate_book_redis_handler:
+        g_relate_book_redis_handler = RedisHandler('relate_book')
+    return g_relate_book_redis_handler
 
 
 def get_book_redis_handler():

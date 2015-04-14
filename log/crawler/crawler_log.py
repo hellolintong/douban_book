@@ -8,7 +8,7 @@ g_logger = None
 def get_logger():
     global g_logger
     if not g_logger:
-        g_logger = init("crawler_logger", "log/crawler/crawler.log")
+        g_logger = init("crawler_logger", "/home/Flask/log/crawler/crawler.log")
     return g_logger
 
 

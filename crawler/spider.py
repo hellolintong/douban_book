@@ -90,6 +90,7 @@ def crawler_book(book_id):
         'read_num': 0,
         'tag_list': [],
         'star_info': [0, 0, 0, 0, 0],
+        'relate_book_list': [],
     }
     #获取评分信息
     score = soup.find('div', class_='rating_wrap')
@@ -139,6 +140,16 @@ def crawler_book(book_id):
         if tag.find('a'):
             tag_info.append(unicode(tag.find('a').string))
     book['tag_list'] = tag_info
+
+    #获取关联书籍信息
+    relate_book_soup_list = soup.find('div', class_="related_info").find('div', id="db-rec-section").find('div', class_="content clearfix").find_all('dl')
+    for book_soup in relate_book_soup_list:
+        try:
+            relate_book = book_soup.find('dt').find('a')
+        except Exception:
+            continue
+        if relate_book:
+            book['relate_book_list'].append(int(relate_book['href'].split('/')[-2]))
 
     #获取书单信息
     url = u"http://book.douban.com/subject/" + book_id + u"/doulists"
